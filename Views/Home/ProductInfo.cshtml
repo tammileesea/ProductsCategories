@@ -1,0 +1,27 @@
+@model ProductViewModel
+
+<div class="text-center">
+    <h1>@ViewBag.thisProduct.Name</h1>
+    <div>
+        <h2>Categories @ViewBag.thisProduct.Name belongs to:</h2>
+        <ul class="list-unstyled">
+            @foreach(var ass in ViewBag.Associated) {
+                <li>@ass.Name</li>
+            }
+        </ul>
+    </div>
+    <div>
+        <form asp-action="AddCat" asp-route-productID="@ViewBag.thisProduct.ProductId" asp-controller="Home" method="post">
+            <h2>Add a Category: </h2>
+            <span asp-validation-for="@Model.NewAssociation.GroupID"></span><br>
+            <select asp-for="@Model.NewAssociation.GroupID">
+                <option value="" selected disabled>Select Category</option>
+                @foreach(var cat in ViewBag.noAssociation){
+                    <option value="@cat.CategoryId">@cat.Name</option>
+                }
+            </select>
+            <input type="hidden" value="@ViewBag.thisProduct.ProductId" asp-for="@Model.NewAssociation.ItemID">
+            <button class="btn btn-primary">Add</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+@model Product
+
+<div class="text-center">
+    <h1>Products | <a href="/categories">Categories</a></h1>
+    <div>
+        <h2>Add a New Product</h2>
+        <form asp-action="AddProduct" asp-controller="Home" method="post">
+            <div class="form-group">
+                <span asp-validation-for="Name"></span><br>
+                <label asp-for="Name"></label>
+                <input class="form-control" asp-for="Name"><br>
+                <small class="form-text text-muted">Must be at least 2 characters.</small>
+            </div>
+            <div class="form-group">
+                <span asp-validation-for="Description"></span><br>
+                <label asp-for="Description"></label>
+                <input class="form-control" asp-for="Description"><br>
+                <small class="form-text text-muted">Must be at least 2 characters.</small>
+            </div>
+            <div class="form-group">
+                <span asp-validation-for="Price"></span><br>
+                <label asp-for="Price"></label>
+                <input class="form-control" asp-for="Price"><br>
+                <small class="form-text text-muted">Do not enter negative amount.</small>
+            </div>
+            <button class="btn btn-primary">Create</button>
+        </form>
+    </div>
+    <div>
+        <h2>Existing Products</h2>
+        <ul class="list-unstyled">
+            @foreach (var product in ViewBag.AllProducts) {
+                <li><a href="/products/@product.ProductId">@product.Name</a></li>
+            }
+        </ul>
+    </div>
+</div>
